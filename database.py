@@ -4,10 +4,6 @@ import os
 
 class Database:
     def __init__(self, db_name: str):
-        # Delete the existing database file if it exists
-        if os.path.exists(db_name):
-            os.remove(db_name)
-        
         self.db_name = db_name
         self.setup_database()
 
@@ -70,3 +66,9 @@ class Database:
             c.execute('SELECT is_allowed FROM users WHERE user_id = ?', (user_id,))
             result = c.fetchone()
             return bool(result[0]) if result else False
+
+    def user_exists(self, user_id: int) -> bool:
+        with sqlite3.connect(self.db_name) as conn:
+            c = conn.cursor()
+            c.execute('SELECT 1 FROM users WHERE user_id = ?', (user_id,))
+            return bool(c.fetchone())
