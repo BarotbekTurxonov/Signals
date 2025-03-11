@@ -55,11 +55,13 @@ from config import API_TOKEN
 from handlers import (
     cmd_start,
     cmd_lang,
+    cmd_ad,
     language_callback,
     process_contact,
     process_game_selection,
     process_admin_permission,
     process_new_image,
+    process_ad_message,
     UserStates
 )
 
@@ -74,6 +76,8 @@ dp = Dispatcher(bot, storage=storage)
 # Register handlers
 dp.register_message_handler(cmd_start, commands=['start'])
 dp.register_message_handler(cmd_lang, commands=['lang'])
+dp.register_message_handler(cmd_ad, commands=['ad'])
+dp.register_message_handler(process_ad_message, state=UserStates.waiting_for_ad)
 dp.register_callback_query_handler(
     language_callback,
     lambda c: c.data and c.data.startswith('lang_'),
