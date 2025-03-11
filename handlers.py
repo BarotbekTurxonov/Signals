@@ -205,16 +205,19 @@ lang_manager = LanguageManager(db)
 
 async def cmd_start(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
-    user_data = db.get_user(user_id)
     
-    if user_data:  # Registered user
+    # Check if user exists and has shared contact
+    if db.user_exists(user_id):
+        user_lang = lang_manager.get_user_language(user_id)
         await show_games_menu(message)
-    else:  # New user
-        await UserStates.selecting_language.set()
-        await message.answer(
-            get_message("start_message", "en"),
-            reply_markup=get_language_keyboard()
-        )
+        return
+    
+    # New user
+    await UserStates.selecting_language.set()
+    await message.answer(
+        get_message("start_message", "en"),
+        reply_markup=get_language_keyboard()
+    )
 
 async def cmd_ad(message: types.Message, state: FSMContext):
     # Check if user is admin
@@ -232,10 +235,16 @@ async def process_ad_message(message: types.Message, state: FSMContext):
     await message.answer("📤 Broadcasting advertisement...")
     
     # Send the advertisement
-    await send_advertisement(message.text)
+    results = await send_advertisement(message.text)
     
-    # Notify admin about completion
-    await message.answer("✅ Advertisement has been sent to all users!")
+    # Notify admin about completion with details
+    status_message = (
+        "✅ Advertisement Broadcasting Results:\n"
+        f"Total users: {results['total']}\n"
+        f"Successfully sent: {results['success']}\n"
+        f"Failed: {results['failed']}"
+    )
+    await message.answer(status_message)
 
 async def cmd_lang(message: types.Message, state: FSMContext):
     user_id = message.from_user.id
@@ -312,13 +321,12 @@ async def process_contact(message: types.Message, state: FSMContext):
     
     # Send notification to the group
     await notify_new_user(message, phone_number)
-
     await message.answer(
-#         "✅",#get_message("select_game", db.get_user_language(user_id))",
-#         reply_markup=ReplyKeyboardRemove()
-#     )
+         "✅",#get_message("select_game", db.get_user_language(user_id))",
+         reply_markup=ReplyKeyboardRemove()
+     )
     
-    # First remove the contact keyboard and show welcome message
+    # Remove the contact keyboard and show welcome message
     await message.answer(
         get_message("contact_received", user_lang),
         reply_markup=get_games_keyboard()
