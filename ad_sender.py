@@ -17,16 +17,16 @@ class AdSender:
         try:
             if media:
                 with open(media, 'rb') as photo:
-                    await self.bot.send_photo(
+                    await self.bot.send_message(
                         chat_id=user_id,
-                        photo=photo,
-                        caption=message
+                        text=message
                     )
             else:
                 await self.bot.send_message(
                     chat_id=user_id,
                     text=message
                 )
+            await asyncio.sleep(0.1)  # Rate limiting
             return True
         except Exception as e:
             print(f"Failed to send ad to user {user_id}: {str(e)}")
@@ -50,42 +50,13 @@ class AdSender:
                 results['success'] += 1
             else:
                 results['failed'] += 1
-            # Add a small delay to avoid hitting rate limits
-            await asyncio.sleep(0.1)
 
         return results
 
-async def send_advertisement(message: str, media_path: Union[str, None] = None):
+async def send_advertisement(message: str, media_path: Union[str, None] = None) -> dict:
     """
     Helper function to send advertisement
-    Usage example:
-    
-    await send_advertisement(
-        "🎮 New game available: Dragon's Gold!\n"
-        "Try it now and get special bonus!",
-        "path/to/image.jpg"  # Optional
-    )
+    Returns the results dictionary
     """
     sender = AdSender()
-    results = await sender.broadcast_ad(message, media_path)
-    
-    print("\nAdvertisement Broadcasting Results:")
-    print(f"Total users: {results['total']}")
-    print(f"Successfully sent: {results['success']}")
-    print(f"Failed: {results['failed']}")
-
-# Example usage (can be run directly)
-"""
-if __name__ == "__main__":
-    async def main():
-        # Example advertisement message
-        ad_message = (
-            "🎮 Special Offer!\n\n"
-            "Get 50% bonus on your first game today!\n"
-            "Don't miss this opportunity!"
-        )
-        
-        await send_advertisement(ad_message)
-    
-    asyncio.run(main()) """
-
+    return await sender.broadcast_ad(message, media_path)
