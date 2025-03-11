@@ -1,0 +1,57 @@
+{
+    "start_message": {
+        "en": "👋 Выберите язык / Choose a language / Tilni tanlang:",
+        "ru": "👋 Выберите язык / Choose a language / Tilni tanlang:",
+        "uz": "👋 Выберите язык / Choose a language / Tilni tanlang:"
+    },
+    "select_language": {
+        "en": "🌐 Select your preferred language:",
+        "ru": "🌐 Выберите предпочитаемый язык:",
+        "uz": "🌐 Afzal ko'rgan tilingizni tanlang:"
+    },
+    "request_contact": {
+        "en": "📱 Please share your contact number",
+        "ru": "📱 Пожалуйста, поделитесь своим номером телефона",
+        "uz": "📱 Iltimos, telefon raqamingizni ulashing"
+    },
+    "select_game": {
+        "en": "🎮 Choose a game to play:",
+        "ru": "🎮 Выберите игру:",
+        "uz": "🎮 O'yin tanlang:"
+    },
+    "contact_received": {
+        "en": "✅ Thank you for sharing your contact! Here are our available games:",
+        "ru": "✅ Спасибо за предоставление контакта! Вот наши доступные игры:",
+        "uz": "✅ Kontaktingizni ulashganingiz uchun rahmat! Mavjud o'yinlar:"
+    },
+    "language_changed": {
+        "en": "✅ Language has been changed to English",
+        "ru": "✅ Язык изменен на русский",
+        "uz": "✅ Til o'zbek tiliga o'zgartirildi"
+    },
+    "permission_required": {
+        "en": "⚠️ You need permission from the admin to access game images. Request has been sent!",
+        "ru": "⚠️ Для доступа к изображениям игр требуется разрешение администратора. Запрос отправлен!",
+        "uz": "⚠️ O'yin rasmlarini ko'rish uchun administratordan ruxsat olishingiz kerak. So'rov yuborildi!"
+    },
+    "admin_permission_request": {
+        "en": "👤 User Request:\nID: {user_id}\nUsername: @{username}\nName: {full_name}\nGame: {game}\n\nDo you want to grant access?",
+        "ru": "👤 Запрос пользователя:\nID: {user_id}\nUsername: @{username}\nИмя: {full_name}\nИгра: {game}\n\nПредоставить доступ?",
+        "uz": "👤 Foydalanuvchi so'rovi:\nID: {user_id}\nUsername: @{username}\nIsm: {full_name}\nO'yin: {game}\n\nRuxsat berilsinmi?"
+    },
+    "permission_granted": {
+        "en": "✅ Access granted! You can now view signals.",
+        "ru": "✅ Доступ разрешен! Теперь вы можете просматривать изображения игр.",
+        "uz": "✅ Ruxsat berildi! Endi siz signal olishingiz mumkin."
+    },
+    "permission_denied": {
+        "en": "❌ Access denied by admin.",
+        "ru": "❌ Администратор отказал в доступе.",
+        "uz": "❌ Administrator ruxsat bermadi."
+    },
+    "no_images": {
+        "en": "😔 No images available for this game.",
+        "ru": "😔 Для этой игры нет доступных изображений.",
+        "uz": "😔 Bu o'yin uchun rasmlar mavjud emas."
+    }
+}
