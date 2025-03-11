@@ -1,5 +1,5 @@
 import sqlite3
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 import os
 
 class Database:
@@ -7,7 +7,7 @@ class Database:
         # Delete the existing database file if it exists
         if os.path.exists(db_name):
             os.remove(db_name)
-
+        
         self.db_name = db_name
         self.setup_database()
 
@@ -27,6 +27,12 @@ class Database:
             c.execute('SELECT language, phone, is_allowed FROM users WHERE user_id = ?', (user_id,))
             result = c.fetchone()
             return result if result else None
+
+    def get_all_users(self) -> List[int]:
+        with sqlite3.connect(self.db_name) as conn:
+            c = conn.cursor()
+            c.execute('SELECT user_id FROM users')
+            return [row[0] for row in c.fetchall()]
 
     def save_language(self, user_id: int, language: str):
         with sqlite3.connect(self.db_name) as conn:
